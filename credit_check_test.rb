@@ -6,14 +6,19 @@ require_relative 'credit_check'
 class CreditCheckTest < Minitest::Test
 
   def test_a_valid_card_is_valid
-    cc = CreditCheck.new("5541808923795240")
-    assert cc.valid?, 'Expected CreditCheck to return valid, was invalid!'
+    valid_numbers = ["5541808923795240", "4024007136512380", "6011797668867828"]
+    valid_numbers.each do |number|
+      cc = CreditCheck.new(number)
+      assert cc.valid?, "Expected #{number} to return valid, was invalid!"
+    end
   end
 
   def test_an_invalid_card_is_invalid
-    cc = CreditCheck.new("5541801923795240")
-    refute cc.valid?, 'Expected CreditCheck to return invalid, was valid!'
+    invalid_numbers = ["5541801923795240", "4024007106512380", "6011797668868728"]
+    invalid_numbers.each do |number|
+      cc = CreditCheck.new(number)
+      refute cc.valid?, "Expected #{number} to return invalid, was valid!"
+    end
   end
-
 
 end
